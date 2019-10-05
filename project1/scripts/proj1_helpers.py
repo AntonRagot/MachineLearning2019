@@ -40,9 +40,29 @@ def create_csv_submission(ids, y_pred, name):
                y_pred (predicted class labels)
                name (string name of .csv output file to be created)
     """
-    with open(name, 'w') as csvfile:
+    with open(name, 'w', newline='') as csvfile:
         fieldnames = ['Id', 'Prediction']
         writer = csv.DictWriter(csvfile, delimiter=",", fieldnames=fieldnames)
         writer.writeheader()
         for r1, r2 in zip(ids, y_pred):
             writer.writerow({'Id':int(r1),'Prediction':int(r2)})
+
+            
+def split_data(x, y, ratio, seed=1):
+    """
+    Split the dataset based on the split ratio. If ratio is 0.8 
+    you will have 80% of your data set dedicated to training 
+    and the rest dedicated to testing
+    """
+    # set seed
+    np.random.seed(seed)
+    
+    n = y.shape[0]
+    indices = np.arange(n)
+    np.random.shuffle(indices)
+    limit = min(int(n * ratio), n)
+    train_indices, test_indices = indices[:limit], indices[limit:]
+    
+    train_x, test_x = x[train_indices], x[test_indices]
+    train_y, test_y = y[train_indices], y[test_indices]
+    return train_x, train_y, test_x, test_y

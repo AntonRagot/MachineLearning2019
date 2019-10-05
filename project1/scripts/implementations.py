@@ -12,7 +12,7 @@ def mse_grad(y, tx, w):
     """Computes gradient of mse function
     """
     err = y - tx @ w
-    return grad = -1.0/y.shape[0] * (tx.T @ err)
+    return -1.0/y.shape[0] * (tx.T @ err)
     
 def mae(y, tx, w):
     """Computes loss using mean absolute error
