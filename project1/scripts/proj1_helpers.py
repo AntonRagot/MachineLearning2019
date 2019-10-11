@@ -48,14 +48,15 @@ def create_csv_submission(ids, y_pred, name):
             writer.writerow({'Id':int(r1),'Prediction':int(r2)})
 
             
-def split_data(x, y, ratio, seed=1):
+def split_data(x, y, ratio, seed=None):
     """
     Split the dataset based on the split ratio. If ratio is 0.8 
     you will have 80% of your data set dedicated to training 
     and the rest dedicated to testing
     """
     # set seed
-    np.random.seed(seed)
+    if seed:
+        np.random.seed(seed)
     
     n = y.shape[0]
     indices = np.arange(n)
