@@ -32,7 +32,7 @@ def logistic_grad(y, tx, w):
     return np.dot(tx.T, sigmoid(np.dot(tx, w))-y)
 
 def reg_logistic_grad(y, tx, w, lambda_):
-     """Computes gradient of regularized logistic function
+    """Computes gradient of regularized logistic function
     """
     return logistic_grad(y, tx, w) + 2 * lambda_ * w
     
