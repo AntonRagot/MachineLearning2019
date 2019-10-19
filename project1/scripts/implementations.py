@@ -18,6 +18,11 @@ def logistic_loss(y, tx, w):
     """Computes loss using log-likely-hood
     """
     return np.sum(np.log(1+np.exp(np.dot(tx,w))) - y * np.dot(tx,w))
+
+def reg_logistic_loss(y, tx, w, lambda_):
+    """Computes loss using regularized log-likely-hood
+    """
+    return logistic_loss(y, tx, w) + lambda_ * np.squeeze(w.T @ w)
     
 def logistic_grad(y, tx, w):
     """Computes gradient of logistic function
@@ -25,6 +30,11 @@ def logistic_grad(y, tx, w):
     def sigmoid(t):
         return 1/(1+np.exp(-t))
     return np.dot(tx.T, sigmoid(np.dot(tx, w))-y)
+
+def reg_logistic_grad(y, tx, w, lambda_):
+     """Computes gradient of regularized logistic function
+    """
+    return logistic_grad(y, tx, w) + 2 * lambda_ * w
     
 def mae(y, tx, w):
     """Computes loss using mean absolute error
@@ -92,5 +102,4 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
 def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
     """Regularized logistic regression using SGD
     """
-    # TODO
-    return w, loss
+    return least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function=reg_logistic_loss, gradient=reg_logistic_grad)
