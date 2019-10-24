@@ -1,4 +1,5 @@
 # Machine Learning Project 1: Higgs boson
+_by Robin Zbinden, Anton Ragot, Peter Krcmar (Team RAP)_
 
 ## File structure
 
