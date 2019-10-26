@@ -42,3 +42,17 @@ def check(test_x, test_y, weights, degs):
     predictions = predict_all(test_x, weights, degs)
     return accuracy(predictions, test_y)
 """
+
+# ----------- Predict -------------
+def sigmoid(t):
+    """ Sigmoid function
+    """
+    return 1/(1 + np.exp(-t))
+
+def logistic_regression_classify(data, w):
+    """ Make predictions for logistic regression
+    """
+    predictions = sigmoid(data@w)
+    predictions[predictions<0.5]=-1
+    predictions[predictions>=0.5]=1        
+    return predictions

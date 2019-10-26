@@ -1,6 +1,7 @@
 # Machine Learning Project 1: Higgs boson
 _by Robin Zbinden, Anton Ragot, Peter Krcmar (Team RAP)_
 
+
 The goal of this project is to detect an Higgs Boson given some observed data
 
 ## Usage
