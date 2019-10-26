@@ -1,6 +1,5 @@
 import numpy as np
 from constants import *
-from implementations import ridge_regression
 
 ### DATA SEPARATION
 

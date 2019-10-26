@@ -36,7 +36,7 @@ def compute_gradient(y, tx, w):
     """Compute the gradient
     """
     err = y - tx@w # error vector
-    return -1.0/y.shape[0] * tx.T@err
+    return -1.0/y.shape[0] * tx.T @ err
 
 def mse_grad(y, tx, w):
     """Computes gradient of mse function
