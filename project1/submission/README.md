@@ -8,7 +8,7 @@ The goal of this project is to detect an Higgs Boson given some observed data
 
 1. Download the train.csv and test.csv sets from the following link : https://github.com/epfml/ML_course/tree/master/projects/project1/data
 2. Place them in data/
-3. Run the script
+3. Run the script **run.py** located in code/
 ```
 python run.py
 ```
