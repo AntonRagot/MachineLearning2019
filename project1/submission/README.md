@@ -1,6 +1,18 @@
 # Machine Learning Project 1: Higgs boson
 _by Robin Zbinden, Anton Ragot, Peter Krcmar (Team RAP)_
 
+The goal of this project is to detect an Higgs Boson given some observed data
+
+## Usage
+
+1. Download the train.csv and test.csv sets from the following link : https://github.com/epfml/ML_course/tree/master/projects/project1/data
+2. Place them in data/
+3. Run the script
+```
+python run.py
+```
+4. You can find our predictions in the file located in output/predictions.csv
+
 ## File structure
 
 Here is a brief overview of our project's structure. More detailed explanations for each file are provided in the next section.
@@ -25,15 +37,6 @@ Here is a brief overview of our project's structure. More detailed explanations 
     - weights.npy
     - degrees.npy
     
-## Usage
-
-1. Download the train.csv and test.csv sets from the following link : https://github.com/epfml/ML_course/tree/master/projects/project1/data
-2. Place them in data/
-3. Run the script
-```
-python run.py
-```
-4. You can find our predictions in the file located in output/predictions.csv
     
 ## Detailed file description
 
