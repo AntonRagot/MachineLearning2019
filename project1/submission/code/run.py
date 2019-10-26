@@ -7,8 +7,6 @@ from features import *
 from constants import *
 from prediction import *
 
-# load test data
-
 print('Loading test data')
 _, x, ids_test = load_csv_data(DATA_TEST_PATH)
 

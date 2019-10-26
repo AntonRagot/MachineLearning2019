@@ -8,12 +8,20 @@ from constants import K
 ### TRAINING
 
 def regress(x, y, lamb=0):
+    """
+    Computes weights using ridge regression
+    """
     w,_ = ridge_regression(y, x, lamb)
     return w
     
 ### CROSS-VALIDATION
 
-def build_k_indices( y, K=K, seed=0):
+def build_k_indices(y, K=K, seed=0):
+    """
+    Builds the indices used for k-fold cross validation.
+    Returns a list of (train indices, test indices) where test indices is the k-th 'block'
+    and train indices are the rest
+    """
     np.random.seed(seed)
     indices = np.random.permutation(len(y))
     k_indices = np.array_split(indices, K)
@@ -25,6 +33,11 @@ def build_k_indices( y, K=K, seed=0):
     return out
     
 def k_fold_cross_validation(x,y,degrees,lambdas):
+    """
+    Does a k-fold cross validation to find the best degree and lambda,
+    given a list of degrees and lambdas to test.
+    Returns all measured accuracies as well as the best degree and lambda.
+    """
     accuracies = np.zeros((len(degrees), len(lambdas)))
     k_indices = build_k_indices(y)
     c = 1
