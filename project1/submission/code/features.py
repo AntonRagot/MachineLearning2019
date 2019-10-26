@@ -7,12 +7,11 @@ def expand_poly(X, degree):
     Expands the array X up to the given degree
     e.g. expand_poly([x], 3) gives [1, x, x^2, x^3]
     """
-    expanded_x = X.copy()
-    for d in range(2,degree + 1):
-        expanded_x = np.c_[expanded_x, np.power(X, d)]
     # add bias term (1)
-    expanded_x = np.c_[np.ones((X.shape[0],1)), expanded_x]
-    return expanded_x
+    to_concatenate = [np.ones((X.shape[0],1)), X.copy()]
+    for d in range(2,degree + 1):
+        to_concatenate.append(np.power(X, d))
+    return np.concatenate(to_concatenate, axis=1)
 
 def add_features(X, degree):
     """
@@ -26,12 +25,13 @@ def add_features(X, degree):
     
     # add cross terms
     to = X.shape[1]
+    to_concatenate = [expanded_x]
     for i in range(to):
         for j in range(i+1, to):
-            expanded_x = np.c_[expanded_x, X[:,i] * X[:,j]] 
+            to_concatenate.append((X[:,i] * X[:,j]).reshape(-1, 1)) 
             
     # add cos and sin terms
-    expanded_x = np.c_[expanded_x, np.cos(X)]
-    expanded_x = np.c_[expanded_x, np.sin(X)]
+    to_concatenate.append(np.cos(X))
+    to_concatenate.append(np.sin(X))
     
-    return expanded_x
+    return np.concatenate(to_concatenate, axis=1)

@@ -20,4 +20,4 @@ UNWANTED = [[4,5,6,12,22,23,24,25,26,27,28,29],
             [22]]      
 LAMBDAS_TO_TEST = np.logspace(-8, 0, 10)
 LAMBDAS_TO_TEST = np.insert(LAMBDAS_TO_TEST, 0, 0)
-DEGREES_TO_TEST = np.arange(2,11)
+DEGREES_TO_TEST = np.arange(5,11)
