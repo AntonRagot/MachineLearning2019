@@ -1,6 +1,7 @@
 # imports
 import numpy as np
 from utils import *
+from loss import *
 from implementations import *
 from preprocessing import *
 from features import *
