@@ -1,4 +1,5 @@
 import numpy as np
+from prediction import sigmoid
 
 # -- Loss functions -----------------------------------------
 
@@ -46,8 +47,6 @@ def mse_grad(y, tx, w):
 def logistic_grad(y, tx, w):
     """Computes gradient of logistic function
     """
-    def sigmoid(t):
-        return 1/(1+np.exp(-t))
     return np.dot(tx.T, sigmoid(np.dot(tx, w))-y)
 
 
