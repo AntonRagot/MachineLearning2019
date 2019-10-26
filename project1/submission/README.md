@@ -17,26 +17,29 @@ python run.py
 ## File structure
 
 Here is a brief overview of our project's structure. More detailed explanations for each file are provided in the next section.
-
-- data
-    - training data
-    - testing data
-- code
-    - constants.py
-    - utils.py
-    - preprocessing.py
-    - implementations.py
-    - features.py
-    - train.py
-    - prediction.py
-    - generate_model.py
-    - run.py
     
-- output
-    - predictions.csv
-    - medians.npy
-    - weights.npy
-    - degrees.npy
+```
+├── Data                    <- Folder needed to be created, copy .csv files here
+│   ├── training data
+│   └── testing data
+├── Report
+│   ├── constants.py
+│   ├── utils.py
+│   ├── preprocessing.py
+│   ├── implementations.py
+│   ├── features.py
+│   ├── train.py
+│   ├── prediction.py
+│   ├── generate_model.py
+│   └── run.py
+├── Output
+│   ├── predictions.csv
+│   ├── medians.npy
+│   ├── weights.npy
+│   └── degrees.npy
+├── Report
+│   └── Report.pdf
+```
     
     
 ## Detailed file description
