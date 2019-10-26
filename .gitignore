@@ -5,6 +5,7 @@ __pycache__/
 
 # Remove data
 project1/data
+project1/submission/data
 
 # C extensions
 *.so
