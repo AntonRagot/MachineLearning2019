@@ -1,7 +1,7 @@
 import numpy as np
 from loss import *
 
-# -- Regression functions -----------------------------------
+### REGRESSION FUNCTIONS
     
 def least_squares_GD(y, tx, initial_w, max_iters, gamma, loss_function=mse, gradient=mse_grad):
     """Regression using gradient descent

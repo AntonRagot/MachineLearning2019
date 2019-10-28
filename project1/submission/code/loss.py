@@ -1,7 +1,7 @@
 import numpy as np
 from prediction import sigmoid
 
-# -- Loss functions -----------------------------------------
+### LOSS FUNCTIONS
 
 def mse(y, tx, w):
     """Computes loss using mean square error
@@ -30,7 +30,7 @@ def rmse(y, tx, w):
     """
     return np.sqrt(2 * mse(y, tx, w))
 
-# -- Gradients functions ----------------------------------------
+### GRADIENT FUNCTIONS
 
 def compute_gradient(y, tx, w):
     """Compute the gradient
