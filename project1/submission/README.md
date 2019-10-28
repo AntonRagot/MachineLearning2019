@@ -27,10 +27,10 @@ Here is a brief overview of our project's structure. More detailed explanations 
 │   ├── utils.py
 │   ├── preprocessing.py
 │   ├── implementations.py
+│   ├── loss.py
 │   ├── features.py
 │   ├── train.py
 │   ├── prediction.py
-│   ├── loss.py
 │   ├── generate_model.py
 │   └── run.py
 ├── output
@@ -50,6 +50,8 @@ Here is a brief overview of our project's structure. More detailed explanations 
 `preprocessing.py` defines functions used for preprocessing data
 
 `implementations.py` contains the required regression functions
+
+`loss.py` contains definitions of loss functions and their gradients (used by `ìmplementations.py`)
 
 `features.py` defines functions used for feature expansion
 
