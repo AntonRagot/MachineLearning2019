@@ -13,7 +13,9 @@ UNDEF = -999.
 JET_NUM_INDEX = 22
 
 # training constants
+# for K-fold
 K = 10
+# Unwanted columns for each jet number value 
 UNWANTED = [[4,5,6,12,22,23,24,25,26,27,28,29],
             [4,5,6,12,22,26,27,28,29],
             [22],
