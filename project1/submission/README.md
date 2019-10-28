@@ -30,6 +30,7 @@ Here is a brief overview of our project's structure. More detailed explanations 
 │   ├── features.py
 │   ├── train.py
 │   ├── prediction.py
+│   ├── loss.py
 │   ├── generate_model.py
 │   └── run.py
 ├── output
