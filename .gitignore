@@ -3,9 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Remove data
+# Remove data project1
 project1/data
 project1/submission/data
+
+# Remove data project2
+project2/data
 
 # C extensions
 *.so
