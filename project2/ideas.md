@@ -7,9 +7,16 @@
 - enlever mots sans signification (stopwords) `a`, `by`, `the`, ...
 - enlever chiffres (?)
 - enlever tokens `<url>`, `<user>`, ...
+- tout mettre en minuscules
 - [lemmatizer](https://www.datacamp.com/community/tutorials/stemming-lemmatization-python) les mots
 - garder les hashtag
 - garder mots seuls mais aussi paires voire triplets de mots (pour naive bayes)
+
+## features
+
+- bag of words + enlever tous les mots qui apparaissent qu'une fois
+- number of positive / negative occurences in predefined [lexicon](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html#lexicon)
+- ratio of capital letters
 
 ## models
 
