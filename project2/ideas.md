@@ -28,6 +28,7 @@
 
 ## libraries
 
+- [symspell](https://github.com/wolfgarbe/symspell) (fast spelling correction + hashtag segmentation)
 - [nltk](https://www.nltk.org/) (natural language)
 - [pandas](https://pandas.pydata.org/) (loading / analyzing data)
 - [scikit-learn](https://scikit-learn.org/stable/) (nice ML functions)
