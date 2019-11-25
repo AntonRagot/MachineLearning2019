@@ -1,22 +1,46 @@
 import string
-import symspell
 import re
+import pkg_resources
 from nltk.stem.wordnet import WordNetLemmatizer
+from symspellpy.symspellpy import SymSpell, Verbosity
+
+## ----------- for hashtags ----------
+# maximum edit distance per dictionary precalculation
+max_edit_distance_dictionary = 0
+prefix_length = 7
+# create object
+sym_spell = SymSpell(max_edit_distance_dictionary, prefix_length)
+# load dictionary
+dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
+bigram_path = pkg_resources.resource_filename("symspellpy", "frequency_bigramdictionary_en_243_342.txt")
+        # term_index is the column of the term and count_index is the
+        # column of the term frequency
+if not sym_spell.load_dictionary(dictionary_path, term_index=0,count_index=1):
+    print("Dictionary file not found")
+
+if not sym_spell.load_bigram_dictionary(dictionary_path, term_index=0,count_index=2):
+    print("Bigram dictionary file not found")
+
+## ---------------------------------
 
 def remove_tokens(tweet):
     '''Returns tweet with removed tokens such as <user> and <url>'''
     return tweet.replace('<user>', '').replace('<url>', '')
 
 def remove_punctuation(tweet):
-    '''Returns tweet without punctuation'''
-    return tweet.translate(str.maketrans('', '', string.punctuation))
+    '''Returns tweet without punctuation but keeps our tokens'''
+    custom_punctuation = "!\"#$%&'()*+,-./:;=?@[\]^_`{|}~"
+    tweet = tweet.translate(str.maketrans('', '', custom_punctuation))
+    words = tweet.split()
+    words = [w for w in words if w.isalnum() or w[0] == '<' and w[-1] == '>']
+    return ' '.join(words)
 
 def replace_numbers(tweet):
     '''Replaces numbers by <number>'''
     return ' '.join(['<number>' if w.isdigit() else w for w in tweet.split()])
 
 def replace_elong(tweet):
-    '''Replaces words with repetitions by <elong>'''
+    '''Replaces words with repeated letters by <elong>'''
     words = tweet.split()
     corrected = [re.sub(r'(\w)\1{2,}',r'\1', w) for w in words]
     out = []
@@ -25,6 +49,15 @@ def replace_elong(tweet):
         if w != c:
             out.append('<elong>')
     return ' '.join(out)
+
+def replace_heart(tweet):
+    '''Replaces hearts by <heart>'''
+    return ' '.join(['<heart>' if '<3' in x else x for x in tweet.split(' ')])
+
+def split_hashtag(tweet):
+    '''Returns tweet that doesn't contain any hashtags'''
+    return ' '.join([sym_spell.word_segmentation(x.replace('#', '')).corrected_string if '#' in x else x for x in tweet.split(' ')])
+
 
 def clean_tweet(tweet):
     '''
