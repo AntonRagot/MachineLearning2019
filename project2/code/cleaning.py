@@ -1,5 +1,26 @@
 import string
+import pkg_resources
 from nltk.stem.wordnet import WordNetLemmatizer
+from symspellpy.symspellpy import SymSpell
+
+## ----------- for hashtags ----------
+# maximum edit distance per dictionary precalculation
+max_edit_distance_dictionary = 0
+prefix_length = 7
+# create object
+sym_spell = SymSpell(max_edit_distance_dictionary, prefix_length)
+# load dictionary
+dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
+bigram_path = pkg_resources.resource_filename("symspellpy", "frequency_bigramdictionary_en_243_342.txt")
+        # term_index is the column of the term and count_index is the
+        # column of the term frequency
+if not sym_spell.load_dictionary(dictionary_path, term_index=0,count_index=1):
+    print("Dictionary file not found")
+
+if not sym_spell.load_bigram_dictionary(dictionary_path, term_index=0,count_index=2):
+    print("Bigram dictionary file not found")
+
+## ---------------------------------
 
 def remove_tokens(tweet):
     '''Returns tweet with removed tokens such as <user> and <url>'''
@@ -12,6 +33,15 @@ def remove_punctuation(tweet):
 def remove_digits(tweet):
     '''Returns tweet that doesn't contain standalone digits'''
     return ' '.join([w for w in tweet.split() if not w.isdigit()])
+
+def change_hearth(tweet):
+    '''Returns tweet that doesn't contain heart emoji'''
+    return ' '.join(['<heart>' if '<3' in x else x for x in tweet.split(' ')])
+
+def split_hashtag(tweet):
+    '''Returns tweet that doesn't contain any hashtags'''
+    return ' '.join([sym_spell.word_segmentation(x.replace('#', '')).corrected_string if '#' in x else x for x in tweet.split(' ')])
+
 
 def clean_tweet(tweet):
     '''
