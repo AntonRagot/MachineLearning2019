@@ -1,8 +1,8 @@
 import string
+import re
 import pkg_resources
 from nltk.stem.wordnet import WordNetLemmatizer
 from symspellpy.symspellpy import SymSpell
-import re
 
 ## ----------- for hashtags ----------
 # maximum edit distance per dictionary precalculation
@@ -28,15 +28,30 @@ def remove_tokens(tweet):
     return tweet.replace('<user>', '').replace('<url>', '')
 
 def remove_punctuation(tweet):
-    '''Returns tweet without punctuation'''
-    return tweet.translate(str.maketrans('', '', string.punctuation))
+    '''Returns tweet without punctuation but keeps our tokens'''
+    custom_punctuation = "!\"#$%&'()*+,-./:;=?@[\]^_`{|}~"
+    tweet = tweet.translate(str.maketrans('', '', custom_punctuation))
+    words = tweet.split()
+    words = [w for w in words if w.isalnum() or w[0] == '<' and w[-1] == '>']
+    return ' '.join(words)
 
-def remove_digits(tweet):
-    '''Returns tweet that doesn't contain standalone digits'''
-    return ' '.join([w for w in tweet.split() if not w.isdigit()])
+def replace_numbers(tweet):
+    '''Replaces numbers by <number>'''
+    return ' '.join(['<number>' if w.isdigit() else w for w in tweet.split()])
 
-def change_hearth(tweet):
-    '''Returns tweet that doesn't contain heart emoji'''
+def replace_elong(tweet):
+    '''Replaces words with repeated letters by <elong>'''
+    words = tweet.split()
+    corrected = [re.sub(r'(\w)\1{2,}',r'\1', w) for w in words]
+    out = []
+    for c,w in zip(corrected,words):
+        out.append(c)
+        if w != c:
+            out.append('<elong>')
+    return ' '.join(out)
+
+def replace_heart(tweet):
+    '''Replaces hearts by <heart>'''
     return ' '.join(['<heart>' if '<3' in x else x for x in tweet.split(' ')])
 
 def split_hashtag(tweet):
@@ -77,9 +92,9 @@ def clean_tweet(tweet):
         str: The cleaned tweet
     '''
     tweet = tweet.lower()
-    tweet = remove_tokens(tweet)
+    # tweet = remove_tokens(tweet)
     tweet = remove_punctuation(tweet)
-    tweet = remove_digits(tweet)
+    tweet = remove_numbers(tweet)
     return tweet
 
 def lemmatize_tweet(tweet):
