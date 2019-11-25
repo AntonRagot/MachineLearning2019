@@ -56,9 +56,10 @@ def replace_heart(tweet):
 
 def split_hashtag(tweet):
     '''Returns tweet that doesn't contain any hashtags'''
-    return ' '.join([sym_spell.word_segmentation(x.replace('#', '')).corrected_string if '#' in x else x for x in tweet.split(' ')])
+    words = [w for w in tweet.split() if w != '#']
+    return ' '.join([sym_spell.word_segmentation(x.replace('#', '')).corrected_string if '#' in x else x for x in words])
 
-def remove_repetition(tweet):
+def replace_repetition(tweet):
     ''' Changes any consecutive occurences of a word by the word and <rep> '''
     regex = r"(\b\S+)(?:\s+\1\b)+"
     
@@ -92,9 +93,12 @@ def clean_tweet(tweet):
         str: The cleaned tweet
     '''
     tweet = tweet.lower()
-    # tweet = remove_tokens(tweet)
+    tweet = replace_heart(tweet)
+    tweet = split_hashtag(tweet)
     tweet = remove_punctuation(tweet)
-    tweet = remove_numbers(tweet)
+    tweet = replace_repetition(tweet)
+    tweet = replace_numbers(tweet)
+    tweet = replace_elong(tweet)
     return tweet
 
 def lemmatize_tweet(tweet):
