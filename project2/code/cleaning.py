@@ -2,6 +2,7 @@ import string
 import pkg_resources
 from nltk.stem.wordnet import WordNetLemmatizer
 from symspellpy.symspellpy import SymSpell
+import re
 
 ## ----------- for hashtags ----------
 # maximum edit distance per dictionary precalculation
@@ -41,6 +42,24 @@ def change_hearth(tweet):
 def split_hashtag(tweet):
     '''Returns tweet that doesn't contain any hashtags'''
     return ' '.join([sym_spell.word_segmentation(x.replace('#', '')).corrected_string if '#' in x else x for x in tweet.split(' ')])
+
+def remove_repetition(tweet):
+    ''' Changes any consecutive occurences of a word by the word and <rep> '''
+    regex = r"(\b\S+)(?:\s+\1\b)+"
+    
+    subst = ""
+    
+    find = re.findall(regex, tweet)
+    
+    string = [x.strip() for x in re.split(regex, tweet.lower()) if x.strip() != '']
+    
+    for i in range(len(string)):
+        string[i] = string[i].strip()
+        if string[i] in find:
+            string[i] += " <rep>"
+        
+    
+    return ' '.join(string)
 
 
 def clean_tweet(tweet):
