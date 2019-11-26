@@ -91,7 +91,7 @@ def remove_tokens(tweet):
 
 def remove_punctuation(tweet):
     '''Return tweet without punctuation but keeps our tokens'''
-    custom_punctuation = "\"#$%&'()*+,-./:;=?@[\]^_`{|}~"
+    custom_punctuation = "\"!?#$%&'()*+,-./:;=@[\]^_`{|}~"
     tweet = tweet.translate(str.maketrans('', '', custom_punctuation))
     words = tweet.split()
     words = [w for w in words if w.isalnum() or w[0] == '<' and w[-1] == '>']
