@@ -11,4 +11,6 @@ _Anton Ragot, Robin Zbinden, Peter Krcmar_
 
 ```
 
-**Note**: run `initialize.py` to download the `WordNetLemmatizer` from the `nltk` library.
+**Note**: 
+- run `initialize.py` to download the `WordNetLemmatizer` from the `nltk` library.
+- run `pip3 install -U symspellpy` to install symspellpy
