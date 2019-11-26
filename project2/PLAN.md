@@ -16,7 +16,7 @@
 - [ ] ....
 
  ## EMBEDDING
- - [] Essayer de faire un embedding hybride (embedding de twitter + le notre pour les mots inconnus)
+ - [ ] Essayer de faire un embedding hybride (embedding de twitter + le notre pour les mots inconnus)
  
  ## MODELS
 - [ ] decision tree / forest
