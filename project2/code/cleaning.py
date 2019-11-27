@@ -61,21 +61,20 @@ def split_hashtag(tweet):
 
 def replace_repetition(tweet):
     ''' Changes any consecutive occurences of a word by the word and <rep> '''
-    regex = r"(\b\S+)(?:\s+\1\b)+"
-    
-    subst = ""
-    
-    find = re.findall(regex, tweet)
-    
-    string = [x.strip() for x in re.split(regex, tweet.lower()) if x.strip() != '']
-    
-    for i in range(len(string)):
-        string[i] = string[i].strip()
-        if string[i] in find:
-            string[i] += " <rep>"
-        
-    
-    return ' '.join(string)
+    words = tweet.split()
+    dup, old_dup = False, False
+    prev = None
+    unique = []
+    for w in words:
+        old_dup = dup
+        dup = prev == w
+        if not dup:
+            if old_dup:
+                unique.append('<rep>')
+            unique.append(w)
+        prev = w
+    if dup: unique.append('<rep>') # handle last word
+    return ' '.join(unique)
 
 
 def clean_tweet(tweet):

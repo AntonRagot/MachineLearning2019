@@ -36,6 +36,14 @@ def save_tweets(path, data, labels=None):
             for x in data:
                 f.write(x + '\n')
 
+def one_minus_one_labels_to_one_zero(labels):
+    '''Converts labels from -1 (negative) and 1 (positive) to 0 and 1'''
+    return [1 if y == 1 else 0 for y in labels]
+
+def one_zero_labels_to_one_minus_one(labels):
+    '''Converts labels from 0 (negative) and 1 (positive) to -1 and 1'''
+    return [1 if y == 1 else -1 for y in labels]
+
 def generate_submission(path, predictions):
     """
     Generates a csv file to be submitted to AI-Crowd.
