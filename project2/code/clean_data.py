@@ -1,5 +1,5 @@
 from utils import *
-from cleaning import *
+from cleaning import clean_and_lemmatize
 
 # load training data and remove duplicates
 pos = list(set(load_tweets('../data/train_pos.txt')))

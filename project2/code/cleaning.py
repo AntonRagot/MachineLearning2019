@@ -23,26 +23,96 @@ if not sym_spell.load_bigram_dictionary(dictionary_path, term_index=0,count_inde
 
 ## ---------------------------------
 
+def clean_and_lemmatize(tweet):
+    '''
+    Clean and lemmatize a given tweet.
+    
+    Arg:
+        tweet (str): The tweet to clean and lemmatize
+
+    Returns:
+        str: The cleaned and lemmatized tweet
+    '''
+    return lemmatize_tweet(clean_tweet(tweet))
+
+## ---------------------------------
+
+def clean_tweet(tweet):
+    '''
+    Clean a given tweet by applying the following steps:
+        - Lowercase (even if it is supposed to be already done)
+        - Split the hashtags
+        - Replace special symbols by tokens
+        - Remove punctuation
+        - Replace repetition by tokens
+        - Replace words with repeated letters by word + token
+    
+    Arg:
+        tweet (str): The tweet to clean
+
+    Returns:
+        str: The cleaned tweet
+    '''
+    tweet = tweet.lower()
+    
+    # The order of the calls is significant
+    #tweet = split_hashtag(tweet)
+    tweet = replace_exclamation(tweet)
+    tweet = replace_question(tweet)
+    tweet = replace_heart(tweet)
+    tweet = replace_numbers(tweet)
+    tweet = remove_punctuation(tweet)
+    tweet = replace_repetition(tweet)
+    tweet = replace_elong(tweet)
+    
+    return tweet
+
+def lemmatize_tweet(tweet):
+    '''
+    Lemmatize the nouns and verbs of a tweet.
+
+    Arg:
+        tweet (str): The tweet to lemmatize
+    
+    Returns:
+        str: The lemmatized tweet
+    '''
+    lem = WordNetLemmatizer()
+    words = tweet.split()
+    verbs = [lem.lemmatize(w, 'v') for w in words] # verbs
+    nouns = [lem.lemmatize(w, 'n') for w in verbs] # nouns
+    return ' '.join(nouns)
+
+## ---------------------------------
+
 def remove_tokens(tweet):
-    '''Returns tweet with removed tokens such as <user> and <url>'''
+    '''Return tweet with removed tokens such as <user> and <url>.'''
     return tweet.replace('<user>', '').replace('<url>', '')
 
 def remove_punctuation(tweet):
-    '''Returns tweet without punctuation but keeps our tokens'''
-    custom_punctuation = "!\"#$%&'()*+,-./:;=?@[\]^_`{|}~"
+    '''Return tweet without punctuation but keeps our tokens'''
+    custom_punctuation = "\"#$%&'()*+,-./:;=@[\]^_`{|}~"
     tweet = tweet.translate(str.maketrans('', '', custom_punctuation))
     words = tweet.split()
     words = [w for w in words if w.isalnum() or w[0] == '<' and w[-1] == '>']
     return ' '.join(words)
 
+def replace_exclamation(tweet):
+    '''Replace "!" by <exclamation>.'''
+    return ' '.join(['<exclamation>' if '!' in w else w for w in tweet.split()])
+
+def replace_question(tweet):
+    '''Replace "?" by <question>.'''
+    return ' '.join(['<question>' if '?' in w else w for w in tweet.split()])
+
 def replace_numbers(tweet):
-    '''Replaces numbers by <number>'''
+    '''Replace numbers by <number>.'''
     return ' '.join(['<number>' if w.isdigit() else w for w in tweet.split()])
 
 def replace_elong(tweet):
-    '''Replaces words with repeated letters by <elong>'''
+    '''Replace words with repeated letters by <elong>.'''
     words = tweet.split()
-    corrected = [re.sub(r'(\w)\1{2,}',r'\1', w) for w in words]
+    corrected = [re.sub(r'(\w)\1{2,}',r'\1', w) for w in words] # if letter is repeated more than twice, put it only once
     out = []
     for c,w in zip(corrected,words):
         out.append(c)
@@ -51,13 +121,14 @@ def replace_elong(tweet):
     return ' '.join(out)
 
 def replace_heart(tweet):
-    '''Replaces hearts by <heart>'''
+    '''Replace hearts "<3" by <heart>.'''
     return ' '.join(['<heart>' if '<3' in x else x for x in tweet.split(' ')])
 
 def split_hashtag(tweet):
-    '''Returns tweet that doesn't contain any hashtags'''
+    '''Return tweet that doesn't contain any hashtag, with token <hashtag>'''
     words = [w for w in tweet.split() if w != '#']
-    return ' '.join([sym_spell.word_segmentation(x.replace('#', '')).corrected_string if '#' in x else x for x in words])
+    hashtag = '<hashtag> '
+    return ' '.join([hashtag.append(sym_spell.word_segmentation(x.replace('#', '')).corrected_string) if '#' in x else x for x in words])
 
 def replace_repetition(tweet):
     ''' Changes any consecutive occurences of a word by the word and <rep> '''
@@ -81,7 +152,6 @@ def clean_tweet(tweet):
     '''
     Cleans a given tweet by applying the following steps:
         - lowercase
-        - remove tokens
         - remove punctuation
         - remove digits
     
@@ -95,9 +165,11 @@ def clean_tweet(tweet):
 
     tweet = replace_heart(tweet)
     tweet = split_hashtag(tweet)
+    tweet = replace_question(tweet)
+    tweet = replace_exclamation(tweet)
     tweet = remove_punctuation(tweet)
-    tweet = replace_repetition(tweet)
     tweet = replace_numbers(tweet)
+    tweet = replace_repetition(tweet)
     tweet = replace_elong(tweet)
     return tweet
 
