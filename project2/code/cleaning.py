@@ -56,7 +56,7 @@ def clean_tweet(tweet):
     tweet = tweet.lower()
     
     # The order of the calls is significant
-    #tweet = split_hashtag(tweet)
+    tweet = split_hashtag(tweet)
     tweet = replace_exclamation(tweet)
     tweet = replace_question(tweet)
     tweet = replace_heart(tweet)
@@ -128,7 +128,7 @@ def split_hashtag(tweet):
     '''Return tweet that doesn't contain any hashtag, with token <hashtag>'''
     words = [w for w in tweet.split() if w != '#']
     hashtag = '<hashtag> '
-    return ' '.join([hashtag.append(sym_spell.word_segmentation(x.replace('#', '')).corrected_string) if '#' in x else x for x in words])
+    return ' '.join([hashtag + (sym_spell.word_segmentation(x.replace('#', '')).corrected_string) if '#' in x else x for x in words])
 
 def replace_repetition(tweet):
     ''' Changes any consecutive occurences of a word by the word and <rep> '''
@@ -146,49 +146,3 @@ def replace_repetition(tweet):
         prev = w
     if dup: unique.append('<rep>') # handle last word
     return ' '.join(unique)
-
-
-def clean_tweet(tweet):
-    '''
-    Cleans a given tweet by applying the following steps:
-        - lowercase
-        - remove punctuation
-        - remove digits
-    
-    Args:
-        tweet (str): The tweet to clean
-
-    Returns:
-        str: The cleaned tweet
-    '''
-    tweet = tweet.lower()
-
-    tweet = replace_heart(tweet)
-    tweet = split_hashtag(tweet)
-    tweet = replace_question(tweet)
-    tweet = replace_exclamation(tweet)
-    tweet = remove_punctuation(tweet)
-    tweet = replace_numbers(tweet)
-    tweet = replace_repetition(tweet)
-    tweet = replace_elong(tweet)
-    return tweet
-
-def lemmatize_tweet(tweet):
-    '''
-    Lemmatizes the nouns and verbs of a tweet.
-
-    Args:
-        tweet (str): The tweet to lemmatize
-    
-    Returns:
-        str: The lemmatized tweet
-    '''
-    lem = WordNetLemmatizer()
-    words = tweet.split()
-    verbs = [lem.lemmatize(w, 'v') for w in words] # verbs
-    nouns = [lem.lemmatize(w, 'n') for w in verbs] # nouns
-    return ' '.join(nouns)
-
-def clean_and_lemmatize(tweet):
-    '''Cleans and lemmatizes a given tweet.'''
-    return lemmatize_tweet(clean_tweet(tweet))
