@@ -60,8 +60,8 @@ def clean_tweet(tweet):
     tweet = replace_exclamation(tweet)
     tweet = replace_question(tweet)
     tweet = replace_heart(tweet)
-    tweet = replace_numbers(tweet)
     tweet = remove_punctuation(tweet)
+    tweet = replace_numbers(tweet)
     tweet = replace_repetition(tweet)
     tweet = replace_elong(tweet)
     

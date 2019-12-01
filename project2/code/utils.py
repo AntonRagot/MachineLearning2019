@@ -1,3 +1,13 @@
+import numpy as np
+
+def load_embeddings(data_path, labels_path=None):
+    X = np.load(data_path)
+    if labels_path:
+        y = np.load(labels_path)
+        return X,y
+    else:
+        return X
+
 def load_tweets(path, contains_ids=False):
     """
     Loads the data from a file. Each line must be either of form `id,tweet` or of form `tweet`.
