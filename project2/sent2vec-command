@@ -1,0 +1,1 @@
+./fasttext sent2vec -input ../data/clean_train_no_label.txt -output ../models/embed-model -minCount 10 -dim 700 -epoch 10 -lr 0.2 -wordNgrams 2 -loss ns -neg 10 -thread 8 -t 0.000005 -dropoutK 4 

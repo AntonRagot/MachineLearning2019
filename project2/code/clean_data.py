@@ -1,9 +1,15 @@
 from utils import *
 from cleaning import clean_and_lemmatize
+import sys
+
+full = ''
+if len(sys.argv) == 2:
+    if sys.argv[1] == '-f' or sys.argv[1] == '--full':
+        full = '_full'
 
 # load training data and remove duplicates
-pos = list(set(load_tweets('../data/train_pos.txt')))
-neg = list(set(load_tweets('../data/train_neg.txt')))
+pos = list(set(load_tweets('../data/train_pos'+ full +'.txt')))
+neg = list(set(load_tweets('../data/train_neg'+ full +'.txt')))
 
 # sort them training data to be consistent between runs (python's `set` doesn't guarantee same order on same data)
 pos = sorted(pos)
@@ -18,9 +24,11 @@ cleaned_neg = [clean_and_lemmatize(t) for t in neg]
 cleaned = cleaned_pos + cleaned_neg
 labels = [1 for x in cleaned_pos] + [-1 for x in cleaned_neg]
 
+
 # write out to file
 print('Saving cleaned training data ...')
-save_tweets('../data/clean_train.txt', cleaned, labels)
+save_tweets('../data/clean_train'+ full +'.txt', cleaned, labels)
+save_tweets('../data/clean_train'+ full +'_no_label.txt', cleaned)
 
 print('Done.')
 # ---------

@@ -7,8 +7,11 @@ __pycache__/
 project1/data
 project1/submission/data
 
+*.directory
+
 # Remove data project2
 project2/data
+project2/models
 
 # C extensions
 *.so
