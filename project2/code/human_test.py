@@ -1,6 +1,7 @@
 from utils import *
 
-tweets = load_tweets('../data/human_val.txt')
+PATH_TWEETS_VAL = '../data/human_val.txt'
+tweets = load_tweets(PATH_TWEETS_VAL)
 
 label_tweet = []
 for t in tweets:
