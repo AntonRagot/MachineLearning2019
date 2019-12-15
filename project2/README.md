@@ -1,5 +1,7 @@
 # Machine Learning project 2 : Twitter Sentiment Analysis
-_Anton Ragot, Robin Zbinden, Peter Krcmar_
+_Robin Zbinden, Anton Ragot, Peter Krcmar (team RAP)_
+
+In this project, we aim to obtain a classifier that predicts if a given tweet message contains a positive :) or negative :( smiley, by considering only the remaining part of the tweet.
 
 ## Folder Structure
 
@@ -11,8 +13,59 @@ _Anton Ragot, Robin Zbinden, Peter Krcmar_
 
 ```
 
-Feel free to run the file `human_test.py` to try classifying random tweets to positive or negative.
+## Dependencies
 
-**Note**: 
-- run `initialize.py` to download the `WordNetLemmatizer` from the `nltk` library.
-- run `pip3 install -U symspellpy` to install symspellpy
+To be able to run `run.py`, you will need the following dependencies :
+
+ - [NLTK](https://www.nltk.org/) to have our lemmatizer for preprocessing
+ 
+ First, you need to make sure you have `nltk` installed :
+ ```
+ pip3 install nltk
+ ```
+ Then, you need to download the `WordNetLemmatizer` we used :
+ ```
+ python3 code/initialize.py
+ ```
+ OR  (SELON OU ON LE MET)
+  ```
+ python3 initialize.py
+ ```
+  
+ - [Symspellpy](https://pypi.org/project/symspellpy/) for preprocessing
+ ```
+ pip3 install -U symspellpy
+ ```
+ 
+ - [Fasttext](https://fasttext.cc/) for the embeddings
+ ```
+ pip3 install fasttext
+ ```
+ 
+ Ajouter les autres trucs pour les models : scikit?
+ 
+
+## Reproduce our score
+
+### Required files
+
+To be able to reproduced our score, you first need to place the data files in the correct place. You can download the dataset on the ML course [repo](https://github.com/epfml/ML_course/tree/master/projects/project2/project_text_classification/Datasets).
+
+The dataset needs to be placed inside the `data` folder, unzipped.
+
+You also need our trained models. Our models are located in the `models` folder, you should only check that they are at the correct place with the correct name :
+- Embedding : `models/...`
+- Classifier : `models/...`
+
+### Start predicting
+
+Run the script `run.py` located in the `code` directory with: 
+
+```python run.py```
+
+The generated predictions are saved to output/predictions.csv
+
+
+## Test yourself! (A voir ou on le place exactement)
+
+Feel free to run the file `human_test.py` to try classifying random tweets to positive or negative. Compare yourself to our team and to our model!
