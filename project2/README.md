@@ -28,17 +28,17 @@ To be able to run `run.py`, you need the following dependencies:
  python3 code/initialize.py
  ```
   
- - [Symspellpy](https://pypi.org/project/symspellpy/) Used for preprocessing.
+ - [Symspellpy](https://pypi.org/project/symspellpy/), used for preprocessing.
  ```
  pip3 install -U symspellpy
  ```
  
- - [Fasttext](https://fasttext.cc/) Used for the embeddings.
+ - [Fasttext](https://fasttext.cc/), used for the embeddings.
  ```
  pip3 install fasttext
  ```
  
-- [Keras](https://keras.io/) USED For the RNN model
+- [Keras](https://keras.io/), used for the RNN model
 ```
 pip3 install keras
 ```
