@@ -12,8 +12,8 @@ LO = 1
 HI = 4
 
 CLEAN_TRAIN_PATH = '../data/clean/train.txt'
-PATH_BEST_WEIGHTS = "../model/pretrained_model_weights.hdf5"
-PATH_TRAINED_WEIGHTS = "../model/trained_weights.hdf5"
+PATH_BEST_WEIGHTS = '../model/pretrained_model_weights.hdf5'
+PATH_TRAINED_WEIGHTS = '../model/trained_weights.hdf5'
 
 
 def get_requested_model(model="CNN", retrain = False):
@@ -63,6 +63,7 @@ def generate_model_CNN_GRU():
     raise NotImplementedError()
 
 def pipeline_model(model):
+    print("Training model")
     if model == "LR":
         clf = Pipeline([
             ('tfidf', TfidfVectorizer(tokenizer=tokenize, ngram_range=(LO, HI))),
@@ -78,13 +79,13 @@ def pipeline_model(model):
             ('tfidf', TfidfVectorizer(tokenizer=tokenize, ngram_range=(LO, HI))),
             ('classifier', DecisionTreeClassifier(random_state=0, max_depth=8))
         ])
-    elif model == "Bayes":
+    elif model == "BAYES":
         clf = Pipeline([
             ('tfidf', TfidfVectorizer(tokenizer=tokenize, ngram_range=(LO, HI))),
-            ('classifier', MultinomialNB(random_state=0))
+            ('classifier', MultinomialNB())
         ])
     else:
-        raise ValueError("Undefined model")
+        raise ValueError("Undefined model %s" % (model))
     train_tweets, train_labels = load_tweets(CLEAN_TRAIN_PATH, True)
     clf.fit(train_tweets, train_labels)
     return clf

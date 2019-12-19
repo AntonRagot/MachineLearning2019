@@ -2,16 +2,6 @@ import numpy as np
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 
-
-
-def load_embeddings(data_path, labels_path=None):
-    X = np.load(data_path)
-    if labels_path:
-        y = np.load(labels_path)
-        return X,y
-    else:
-        return X
-
 def load_tweets(path, contains_ids=False):
     """
     Loads the data from a file. Each line must be either of form `id,tweet` or of form `tweet`.
@@ -82,9 +72,9 @@ def predict(model):
     Args:
         model (model): Model to use to predict
     """
+    print("Predicting")
     preds = []
-    print("Loading clean data")
-    test_data = load_tweets('../data/clean_test.txt')
+    test_data = load_tweets('../data/clean/test.txt')
     tokenizer = get_tokenizer()
     test_data = tokenizer.texts_to_sequences(test_data)
     test_data = pad_sequences(test_data, get_longest_tweet(), padding='post')
@@ -98,7 +88,7 @@ def get_tokenizer():
     """
     Return the tokenizer that is fitted on the training data
     """
-    X = load_tweets('../data/clean_train_full.txt')
+    X = load_tweets('../data/clean/train.txt')
 
     all_word = []
     for elem in X:
@@ -113,5 +103,5 @@ def get_tokenizer():
     return tokenizer
 
 def get_longest_tweet():
-    X = load_tweets('../data/clean_train_full.txt')
+    X = load_tweets('../data/clean/train.txt')
     return max([len(x) for x in X])
