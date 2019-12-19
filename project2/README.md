@@ -68,6 +68,19 @@ Run the script `run.py` located in the `code` folder with:
 
 The generated predictions are saved to `output/predictions.csv`.
 
+### Additional options
+
+By running `run.py` without any flags, you will obtain the prediction we use to get our best accuracy on Aicrowd.
+
+We also added two flags to our `run.py` that can be used as follow:
+
+`python run.py -m MODEL`: use MODEL to make prediction on the test data.
+
+We support the following models:  CNN, CNN_GRU, LR, SVC, TREE, BAYES.
+
+`python run.py -r`: only for our best model (CNN) or CNN_GRU. Retrain the full model with all the parameters already set.
+
+If you have any doubt, use `python run.py -h` to obtain help.
 
 ## Test yourself!
 
