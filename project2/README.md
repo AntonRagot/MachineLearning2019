@@ -24,7 +24,7 @@ To be able to run `run.py`, you need the following dependencies:
  ```
  pip3 install nltk
  ```
- Then, you need to download the `WordNetLemmatizer` we use:
+ Then, you need to download the `WordNetLemmatizer` we use. Download it using:
  ```
  python3 code/initialize.py
  ```
@@ -55,9 +55,9 @@ pip install -U scikit-learn
 
 To be able to reproduced our score, you first need to place the data files in the correct place. You can download the dataset on the ML course [repository](https://github.com/epfml/ML_course/tree/master/projects/project2/project_text_classification/Datasets).
 
-The dataset needs to be placed inside the `data` folder, unzipped.
+The dataset needs to be placed inside the `data` folder, unzipped. You should have the following files: `train_pos_full.txt`, `train_neg_full.txt` and `test_data.txt`.
 
-You also need our trained models. Our models are located in the `models` folder, you should only check that they are at the correct place with the correct name:
+You also need the weight of our best model. Our weights are located in the `models` folder, you should only check that they are at the correct place with the correct name:
 - Classifier's weights : `model/pretrained_model_weights.hdf5`
 
 ### Start predicting
@@ -66,7 +66,7 @@ Run the script `run.py` located in the `code` folder with:
 
 ```python run.py```
 
-The generated predictions are saved to output/predictions.csv.
+The generated predictions are saved to `output/predictions.csv`.
 
 
 ## Test yourself!
