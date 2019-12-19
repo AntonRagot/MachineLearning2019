@@ -9,7 +9,7 @@ In this project, we aim to obtain a classifier that predicts if a given tweet me
 ├───code          (python scripts)
 ├───data          (train and test sets)
 │    └───out      (clean train and test sets)
-├───models        (pretrained models)
+├───model         (pretrained models)
 └───out           (predictions)
 
 ```
@@ -34,14 +34,19 @@ To be able to run `run.py`, you need the following dependencies:
  pip3 install -U symspellpy
  ```
  
- - [Fasttext](https://fasttext.cc/), used for the embeddings.
+ - [Tensorflow](https://www.tensorflow.org/), used for RNN model.
  ```
- pip3 install fasttext
+ pip3 install tensorflow
  ```
  
-- [Keras](https://keras.io/), used for the RNN model
+- [Keras](https://keras.io/), used for RNN model.
 ```
 pip3 install keras
+```
+
+- [Sckit](https://scikit-learn.org/stable/index.html), used for other models.
+```
+pip install -U scikit-learn
 ```
 
 ## Reproduce our score
@@ -53,8 +58,7 @@ To be able to reproduced our score, you first need to place the data files in th
 The dataset needs to be placed inside the `data` folder, unzipped.
 
 You also need our trained models. Our models are located in the `models` folder, you should only check that they are at the correct place with the correct name:
-- Embedding : `models/...`
-- Classifier : `models/...`
+- Classifier's weights : `model/pretrained_model_weights.hdf5`
 
 ### Start predicting
 
