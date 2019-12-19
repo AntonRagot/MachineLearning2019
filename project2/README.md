@@ -8,7 +8,7 @@ In this project, we aim to obtain a classifier that predicts if a given tweet me
 ```
 ├───code          (python scripts)
 ├───data          (train and test sets)
-│    └───out      (clean train and test sets)
+│    └───clean      (clean train and test sets)
 ├───model         (pretrained models)
 └───out           (predictions)
 
