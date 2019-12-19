@@ -6,10 +6,11 @@ In this project, we aim to obtain a classifier that predicts if a given tweet me
 ## Folder Structure
 
 ```
-├───code     (python scripts)
-├───data     (train and test sets)
-├───models   (pretrained models)
-└───out      (predictions)
+├───code          (python scripts)
+├───data          (train and test sets)
+│    └───out      (clean train and test sets)
+├───models        (pretrained models)
+└───out           (predictions)
 
 ```
 
