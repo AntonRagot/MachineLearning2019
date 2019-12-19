@@ -68,6 +68,6 @@ Run the script `run.py` located in the `code` directory with:
 The generated predictions are saved to output/predictions.csv
 
 
-## Test yourself! (A voir ou on le place exactement)
+## Test yourself!
 
-Feel free to run the file `human_test.py` to try classifying random tweets to positive or negative. Compare yourself to our team and to our model!
+Feel free to run the file `human_classifier.py` to try classifying random tweets to positive or negative. Compare your accuracy to ours and the one from our model. You will see that it is not a trivial task.
