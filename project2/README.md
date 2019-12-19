@@ -64,7 +64,7 @@ You also need the weight of our best model. Our weights are located in the `mode
 
 Run the script `run.py` located in the `code` folder with: 
 
-```python run.py```
+```python3 run.py```
 
 The generated predictions are saved to `output/predictions.csv`.
 
@@ -74,11 +74,11 @@ By running `run.py` without any flags, you will obtain the prediction we use to 
 
 We also added two flags to our `run.py` that can be used as follow:
 
-`python run.py -m MODEL`: use MODEL to make prediction on the test data.
+`python3 run.py -m MODEL`: use MODEL to make prediction on the test data.
 
 We support the following models:  CNN, CNN_GRU, LR, SVC, TREE, BAYES.
 
-`python run.py -r`: only for our best model (CNN) or CNN_GRU. Retrain the full model with all the parameters already set. Note that this will take a wrong time, and probably will not reproduce the exact model everytime.
+`python3 run.py -r`: only for our best model (CNN) or CNN_GRU. Retrain the full model with all the parameters already set. Note that this will take a wrong time, and probably will not reproduce the exact model everytime.
 
 If you have any doubt, use `python run.py -h` to obtain help.
 
