@@ -44,9 +44,9 @@ To be able to run `run.py`, you need the following dependencies:
 pip3 install keras
 ```
 
-- [Sckit](https://scikit-learn.org/stable/index.html), used for other models.
+- [scikit-learn](https://scikit-learn.org/stable/index.html), used for other models.
 ```
-pip install -U scikit-learn
+pip3 install -U scikit-learn
 ```
 
 ## Reproduce our score
@@ -57,7 +57,7 @@ To be able to reproduced our score, you first need to place the data files in th
 
 The dataset needs to be placed inside the `data` folder, unzipped. You should have the following files: `train_pos_full.txt`, `train_neg_full.txt` and `test_data.txt`.
 
-You also need the weight of our best model. Our weights are located in the `models` folder, you should only check that they are at the correct place with the correct name:
+You also need the weight of our best model. Our weights are located in the `model` folder, you should only check that they are at the correct place with the correct name:
 - Classifier's weights : `model/pretrained_model_weights.hdf5`
 
 ### Start predicting
@@ -78,10 +78,10 @@ We also added two flags to our `run.py` that can be used as follow:
 
 We support the following models:  CNN, CNN_GRU, LR, SVC, TREE, BAYES.
 
-`python run.py -r`: only for our best model (CNN) or CNN_GRU. Retrain the full model with all the parameters already set.
+`python run.py -r`: only for our best model (CNN) or CNN_GRU. Retrain the full model with all the parameters already set. Note that this will take a wrong time, and probably will not reproduce the exact model everytime.
 
 If you have any doubt, use `python run.py -h` to obtain help.
 
-## Test yourself!
+## Test yourself !
 
 Feel free to run the file `human_classifier.py` to try classifying random tweets to positive or negative. Compare your accuracy to ours and the one from our model. You will see that it is not a trivial task.
