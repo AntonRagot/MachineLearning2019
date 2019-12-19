@@ -1,7 +1,7 @@
 
 
 
-def generate_model(vocabulary_size=200, Embedding_size=10, max_length=54):
+def generate_model_CNN(vocabulary_size=200, Embedding_size=10, max_length=54):
     model = Sequential()
     model.add(Embedding(vocabulary_size, Embedding_size, input_length=max_length))
     model.add(Conv1D(64, kernel_size=3, padding='same', activation='relu'))
@@ -15,3 +15,8 @@ def generate_model(vocabulary_size=200, Embedding_size=10, max_length=54):
     model.add(Dense(1, activation='sigmoid'))
     model.compile(loss='binary_crossentropy',optimizer=optimizers.Adam(lr=0.001),metrics=['accuracy'])
     return model
+
+
+def get_requested_model(model = "CNN"):
+    if model == "CNN":
+        return generate_model_CNN()
