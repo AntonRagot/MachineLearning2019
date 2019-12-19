@@ -42,8 +42,10 @@ To be able to run `run.py`, you will need the following dependencies :
  pip3 install fasttext
  ```
  
- Ajouter les autres trucs pour les models : scikit?
- 
+- [Keras](https://keras.io/) for the RNN model
+```
+pip3 install keras
+```
 
 ## Reproduce our score
 
