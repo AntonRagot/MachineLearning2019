@@ -12,12 +12,15 @@ LO = 1
 HI = 4
 
 CLEAN_TRAIN_PATH = '../data/clean/train.txt'
+PATH_BEST_WEIGHTS = "../model/pretrained_model_weights.hdf5"
+PATH_TRAINED_WEIGHTS = "../model/trained_weights.hdf5"
 
-def get_requested_model(model="CNN"):
+
+def get_requested_model(model="CNN", retrain = False):
     if model == "CNN":
-        return generate_model_CNN()
+        return generate_model_CNN(retrain)
     elif model == "CNN_GRU":
-        return generate_model_CNN_GRU()
+        return generate_model_CNN_GRU(retrain)
     elif model == "LR":
         return pipeline_model(model)
     elif model == "SVC":
@@ -29,7 +32,7 @@ def get_requested_model(model="CNN"):
     else:
         raise ValueError("Undefined model")
 
-def generate_model_CNN(vocabulary_size=200, Embedding_size=10, max_length=54):
+def generate_model_CNN(retrain=False,vocabulary_size=200, Embedding_size=10, max_length=54):
     model = Sequential()
     model.add(Embedding(vocabulary_size, Embedding_size, input_length=max_length))
     model.add(Conv1D(64, kernel_size=3, padding='same', activation='relu'))
@@ -42,6 +45,18 @@ def generate_model_CNN(vocabulary_size=200, Embedding_size=10, max_length=54):
     model.add(Dropout(0.5))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(loss='binary_crossentropy',optimizer=optimizers.Adam(lr=0.001),metrics=['accuracy'])
+
+    if retrain:
+        print("Training model")
+        checkpoint = ModelCheckpoint(PATH_TRAINED_WEIGHTS, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
+        early_stop = EarlyStopping(monitor='val_acc', patience=10, mode='max')
+        plateau = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=2, verbose=1, mode='auto',min_lr=0)
+        model.fit(X,y,validation_split=0.2,epochs=100,batch_size=2048, callbacks = [checkpoint, early_stop, plateau])
+
+        model.load_weights(PATH_TRAINED_WEIGHTS)
+    else:
+        print("Loading weights")
+        model.load_weights(PATH_WEIGHTS)
     return model
 
 def generate_model_CNN_GRU():

@@ -1,26 +1,28 @@
 ##Make imports
-from clean_test import *
+from clean_data import *
 from model import *
 from utils import *
 
-retrain = False
+import argparse
 
-if len(sys.argv) > 1:
-    if sys.argv[1] == '-r' or sys.argv[1] == '--retrain':
-        retrain = True
+PATH_OUTPUT = "../output/predictions.csv"
 
-PATH_WEIGHTS = "../model/pretrained_model_weights.hdf5"
+parser = argparse.ArgumentParser()
+parser.add_argument('-r', '--retrain', action='store_true', 
+    help="retrain the best NN")
+parser.add_argument('-m','--model', action='store', 
+    help="Choose the model to predict (from CNN, CNN_GRU, LR, SVC, TREE, BAYES)")
 
-print("Preprocessing data")
-clean_test_data()
-print("Loading clean data")
-X = load_tweets('../data/clean_test.txt')
+args = parser.parse_args()
+
+print("Cleaning train data")
+clean_training_data()
 print("Loading model")
-model = get_requested_model()
-if retrain:
-    print("Training model")
-    
-else:
-    print("Loading weights")
-    model.load_weights(PATH_WEIGHTS)
+model = get_requested_model(args.model, args.retrain)
+print("Cleaning test data")
+clean_test_data()
 print("Predicting")
+predictions = predict(model)
+print("Saving predictions")
+generate_submission(PATH_OUTPUT, predictions)
+
