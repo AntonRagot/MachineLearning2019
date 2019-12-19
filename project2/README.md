@@ -47,7 +47,7 @@ pip3 install keras
 
 ### Required files
 
-To be able to reproduced our score, you first need to place the data files in the correct place. You can download the dataset on the ML course [repo](https://github.com/epfml/ML_course/tree/master/projects/project2/project_text_classification/Datasets).
+To be able to reproduced our score, you first need to place the data files in the correct place. You can download the dataset on the ML course [repository](https://github.com/epfml/ML_course/tree/master/projects/project2/project_text_classification/Datasets).
 
 The dataset needs to be placed inside the `data` folder, unzipped.
 
