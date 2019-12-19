@@ -13,7 +13,7 @@ from keras.callbacks import EarlyStopping,ModelCheckpoint,ReduceLROnPlateau
 from keras.layers import Bidirectional, GRU, Flatten, Conv1D, MaxPooling1D, GlobalMaxPooling1D, Input, concatenate
 from keras.layers.core import Activation, Dropout, Dense
 from keras.layers.embeddings import Embedding
-from keras.models import Sequential, Model
+from keras.models import Sequential, Model, load_model
 
 
 from utils import *
@@ -25,7 +25,8 @@ LO = 1
 HI = 4
 
 CLEAN_TRAIN_PATH = '../data/clean/train.txt'
-PATH_BEST_WEIGHTS = '../model/pretrained_model_weights.hdf5'
+PATH_BEST_WEIGHTS = '../model/CNN_best_weights.hdf5'
+PATH_BEST_MODEL = '../model/CNN_model.h5'
 PATH_TRAINED_WEIGHTS = '../model/trained_weights.hdf5'
 
 
@@ -45,8 +46,9 @@ def get_requested_model(model="CNN", retrain = False):
     else:
         raise ValueError("Undefined model")
 
-def generate_model_CNN(retrain=False,embedding_size=200, max_length=54):
+def generate_model_CNN(retrain=False,embedding_size=200):
 
+    #if retrain:
     vocabulary_length = get_vocabulary_length()
     longest_tweet_size = get_longest_tweet_size()
 
@@ -98,13 +100,19 @@ def generate_model_CNN(retrain=False,embedding_size=200, max_length=54):
         print("Loading the best weights found")
         model.load_weights(PATH_TRAINED_WEIGHTS)
     else:
-        print("Loading weights")
-        model.load_weights(PATH_BEST_WEIGHTS)
+        print("Loading model")
+        #model = load_model(PATH_BEST_MODEL)
+        model = model.load_weights(PATH_BEST_WEIGHTS)
+        
     return model
 
-def generate_model_CNN_GRU():
+def generate_model_CNN_GRU(retrain=False,embedding_size=200):
+
+    vocabulary_length = get_vocabulary_length()
+    longest_tweet_size = get_longest_tweet_size()
+
     model = Sequential()
-    model.add(Embedding(vocabulary_size, Embedding_size, input_length=max_length, embeddings_regularizer=regularizers.l1_l2(l1=0.02, l2=0.02)))
+    model.add(Embedding(vocabulary_length, embedding_size, input_length=longest_tweet_size, embeddings_regularizer=regularizers.l1_l2(l1=0.02, l2=0.02)))
     model.add(Conv1D(64, kernel_size=3, padding='same', activation='relu'))
     model.add(MaxPooling1D(pool_size=2))
     model.add(Dropout(0.3))
@@ -128,10 +136,11 @@ def generate_model_CNN_GRU():
         tokenizer = get_tokenizer()
         X = tokenizer.texts_to_sequences(X)
         X = pad_sequences(X, get_longest_tweet_size(), padding='post')
-        
+
         checkpoint = ModelCheckpoint(PATH_TRAINED_WEIGHTS, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
         early_stop = EarlyStopping(monitor='val_acc', patience=10, mode='max')
         plateau = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=2, verbose=1, mode='auto',min_lr=0)
+
         model.fit(X,y,validation_split=0.2,epochs=100,batch_size=2048, callbacks = [checkpoint, early_stop, plateau])
 
         model.load_weights(PATH_TRAINED_WEIGHTS)
@@ -140,7 +149,7 @@ def generate_model_CNN_GRU():
             print('No weights exists for the model, please train the data first')
             return None
         print("Loading weights")
-        model.load_weights(PATH_TRAINED_WEIGHTS)
+        model.load_weights(PATH_BEST_MODEL)
 
     return model
 

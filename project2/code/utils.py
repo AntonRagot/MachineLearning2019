@@ -57,13 +57,15 @@ def generate_submission(path, predictions):
         predictions (list): The predictions to be saved (must be of length 10_000 and only 1 or -1)
     """
     assert len(predictions) == 10000
+    print("Predicting")
     with open(path, 'w') as f:
         f.write('Id,Prediction'+'\n')
         index = 1
         for p in predictions:
-            assert p == 1 or p == -1
             f.write(str(index)+','+str(p)+'\n')
             index += 1
+
+    print("Done")
 
 def predict(model):
     """
@@ -72,14 +74,18 @@ def predict(model):
     Args:
         model (model): Model to use to predict
     """
-    print("Predicting")
     preds = []
     test_data = load_tweets('../data/clean/test.txt')
+    longest_tweets = get_longest_tweet_size()
+    print("Getting tokenizer")
     tokenizer = get_tokenizer()
     test_data = tokenizer.texts_to_sequences(test_data)
-    test_data = pad_sequences(test_data, get_longest_tweet_size(), padding='post')
+    print("Padding test tweets")
+    test_data = pad_sequences(test_data, longest_tweets, padding='post')
     for l in test_data:
         preds.append(model.predict(l.reshape(1,-1)))
+
+    preds = [1 if x > 0.5 else -1 for x in preds]
     
     return preds
 
@@ -98,6 +104,9 @@ def get_tokenizer():
     return tokenizer
 
 def get_vocabulary_length():
+    """
+    Returns the size of the vocabulary
+    """
 
     X = load_tweets('../data/clean/train.txt')
 
@@ -112,4 +121,5 @@ def get_vocabulary_length():
 
 def get_longest_tweet_size():
     X = load_tweets('../data/clean/train.txt')
-    return max([len(x) for x in X])
+    longest = max([len(x.split()) for x in X])
+    return longest

@@ -24,4 +24,4 @@ if model is not None:
 
     predictions = predict(model)
 
-    generate_submission(PATH_OUTPUT, predictions)
+    generate_submission(OUTPUT_PATH, predictions)
