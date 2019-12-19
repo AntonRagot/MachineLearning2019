@@ -77,7 +77,7 @@ def predict(model):
     test_data = load_tweets('../data/clean/test.txt')
     tokenizer = get_tokenizer()
     test_data = tokenizer.texts_to_sequences(test_data)
-    test_data = pad_sequences(test_data, get_longest_tweet(), padding='post')
+    test_data = pad_sequences(test_data, get_longest_tweet_size(), padding='post')
     for l in test_data:
         preds.append(model.predict(l.reshape(1,-1)))
     
@@ -90,18 +90,26 @@ def get_tokenizer():
     """
     X = load_tweets('../data/clean/train.txt')
 
+    vocabulary_length = get_vocabulary_length()
+
+    tokenizer = Tokenizer(num_words=vocabulary_length, oov_token=1)
+    tokenizer.fit_on_texts(X)
+
+    return tokenizer
+
+def get_vocabulary_length():
+
+    X = load_tweets('../data/clean/train.txt')
+
     all_word = []
     for elem in X:
         for w in elem.split(' '):
             all_word.append(w)
     all_word = list(set(all_word))
-    vocal_length = len(all_word) + 13
+    vocab_length = len(all_word) + 13
 
-    tokenizer = Tokenizer(num_words=vocal_length, oov_token=1)
-    tokenizer.fit_on_texts(X)
+    return vocab_length
 
-    return tokenizer
-
-def get_longest_tweet():
+def get_longest_tweet_size():
     X = load_tweets('../data/clean/train.txt')
     return max([len(x) for x in X])

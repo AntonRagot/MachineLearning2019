@@ -19,8 +19,9 @@ clean_training_data()
 
 model = get_requested_model(args.model, args.retrain)
 
-clean_test_data()
+if model is not None:
+    clean_test_data()
 
-predictions = predict(model)
+    predictions = predict(model)
 
-generate_submission(PATH_OUTPUT, predictions)
+    generate_submission(PATH_OUTPUT, predictions)
