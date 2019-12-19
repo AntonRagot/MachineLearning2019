@@ -80,7 +80,7 @@ We support the following models:  CNN, CNN_GRU, LR, SVC, TREE, BAYES.
 
 `python3 run.py -r`: only for our best model (CNN) or CNN_GRU. Retrain the full model with all the parameters already set. Note that this will take a wrong time, and probably will not reproduce the exact model everytime.
 
-If you have any doubt, use `python run.py -h` to obtain help.
+If you have any doubt, use `python3 run.py -h` to obtain help.
 
 ## Test yourself !
 
