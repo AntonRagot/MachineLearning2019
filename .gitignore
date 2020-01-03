@@ -11,7 +11,7 @@ project1/submission/data
 
 # Remove data project2
 project2/data
-project2/models
+project2/model
 
 # C extensions
 *.so
