@@ -101,8 +101,8 @@ def generate_model_CNN(retrain=False,embedding_size=200):
         model.load_weights(PATH_TRAINED_WEIGHTS)
     else:
         print("Loading model")
-        #model = load_model(PATH_BEST_MODEL)
-        model = model.load_weights(PATH_BEST_WEIGHTS)
+        model = load_model(PATH_BEST_MODEL)
+        model.load_weights(PATH_BEST_WEIGHTS)
         
     return model
 
@@ -145,11 +145,11 @@ def generate_model_CNN_GRU(retrain=False,embedding_size=200):
 
         model.load_weights(PATH_TRAINED_WEIGHTS)
     else:
-        if os.path.isfile(CLEAN_TRAIN_PATH):
+        if os.path.isfile(PATH_TRAINED_WEIGHTS):
             print('No weights exists for the model, please train the data first')
             return None
         print("Loading weights")
-        model.load_weights(PATH_BEST_MODEL)
+        model.load_weights(PATH_TRAINED_WEIGHTS)
 
     return model
 

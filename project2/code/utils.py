@@ -1,6 +1,7 @@
 import numpy as np
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
+from sklearn.model_selection import train_test_split
 
 def load_tweets(path, contains_ids=False):
     """
@@ -94,7 +95,7 @@ def get_tokenizer():
     """
     Return the tokenizer that is fitted on the training data
     """
-    X = load_tweets('../data/clean/train.txt')
+    X,_ = load_tweets('../data/clean/train.txt',True)
 
     vocabulary_length = get_vocabulary_length()
 
@@ -108,7 +109,7 @@ def get_vocabulary_length():
     Returns the size of the vocabulary
     """
 
-    X = load_tweets('../data/clean/train.txt')
+    X,_ = load_tweets('../data/clean/train.txt',True)
 
     all_word = []
     for elem in X:

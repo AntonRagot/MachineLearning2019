@@ -57,8 +57,11 @@ To be able to reproduced our score, you first need to place the data files in th
 
 The dataset needs to be placed inside the `data` folder, unzipped. You should have the following files: `train_pos_full.txt`, `train_neg_full.txt` and `test_data.txt`.
 
-You also need the weight of our best model. Our weights are located in the `model` folder, you should only check that they are at the correct place with the correct name:
-- Classifier's weights : `model/pretrained_model_weights.hdf5`
+You also need our best model. Feel free to contact any members of our group so we can share our model with you! (or you can retrain the whole model)
+
+You will need to make sure to put them in the correct place with the correct name:
+- Classifier's model : `model/CNN_model.h5`
+- Classifier's weights : `model/CNN_best_weights.hdf5`
 
 ### Start predicting
 

@@ -33,7 +33,6 @@ def clean_training_data():
     cleaned = cleaned_pos + cleaned_neg
     labels = [1 for x in cleaned_pos] + [-1 for x in cleaned_neg]
 
-
     # write out to file
     print('Saving cleaned training data ...')
     save_tweets(CLEAN_TRAIN_PATH, cleaned, labels)
