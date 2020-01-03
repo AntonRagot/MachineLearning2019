@@ -7,11 +7,13 @@ In this project, we aim to obtain a classifier that predicts if a given tweet me
 
 ```
 ├───code          (python scripts)
-├───data          (train and test sets)
-│    └───clean    (clean train and test sets)
-├───model         (pretrained models)
-└───out           (predictions)
+├───report        (our paper for the project)
+├───data          (train and test sets) *
+│    └───clean    (clean train and test sets) *
+├───model         (pretrained models) *
+└───out           (predictions) *
 
+* : folders that need to be created
 ```
 
 ## Dependencies
